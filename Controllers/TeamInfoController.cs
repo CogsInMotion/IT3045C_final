@@ -1,51 +1,50 @@
 using Microsoft.AspNetCore.Mvc;
 using IT3045C_final.Models;
 
-namespace IT3045C_final.Controllers
-{
-    public class TeamInfoController : Controller
-    {
-        public IActionResult Index()
-        {
-            var teamMembers = new List<TeamInfo>
-            {
-                new TeamInfo
-                {
-                    Name = "Ben Stewart",
-                    Birthdate = "02-28-2002",
-                    CollegeProgram = "Information Technology",
-                    YearInProgram = "Junior"
-                },
-                // Add additional team members here-Patricia Echoles
-                 new TeamInfo
-                {
-                    Name = "Patricia Echoles",
-                    Birthdate = "03-21-1991",
-                    CollegeProgram = "Information Tech-Associates Degree",
-                    YearInProgram = "Sophomore"
-                },
-            };
+namespace IT3045C_final.Controllers;
 
-            return View(teamMembers);
-        }
-        // New Controller for FavoriteVideoGame- Patricia Echoles
-        public class FavoriteVideoGameController : Controller
+[ApiController]
+[Route("[controller]")]
+public class TeamInfoController(ILogger<TeamInfoController> logger) : Controller
+{
+    private readonly ILogger<TeamInfoController> _logger = logger;
+
+    public IActionResult Get()
+    {
+        var teamMembers = new List<TeamInfo>
         {
-            public IActionResult Index()
-            {
-                var favoriteGames = new List<FavoriteVideoGame>
-                {
-                  new FavoriteVideoGame
-                    {
-                        Id = 1,
-                        Title = "God of War: Ragnarok",
-                        Genre = "Action",
-                        Platform = "PlayStation 4",
-                        ReleaseYear = "2022"
-                    },
-                };
-                return View(favoriteGames);
+            new() {
+                ID = 1,
+                Name = "Ben Stewart",
+                Birthdate = "02-28-2002",
+                CollegeProgram = "Information Technology",
+                YearInProgram = "Junior"
+            },
+            new() {
+                ID = 2,
+                Name = "Patricia Echoles",
+                Birthdate = "03-21-1991",
+                CollegeProgram = "Information Technology",
+                YearInProgram = "Sophomore"
+            },
+            // TODO: update with correct info
+            new() {
+                ID = 3,
+                Name = "Madi Evanshine",
+                Birthdate = "UNKNOWN",
+                CollegeProgram = "UNKNOWN",
+                YearInProgram = "UNKNOWN"
+            },
+            // TODO: update with correct info
+            new() {
+                ID = 4,
+                Name = "Jacob Nolen",
+                Birthdate = "UNKNOWN",
+                CollegeProgram = "UNKNOWN",
+                YearInProgram = "UNKNOWN"
             }
-        }
+        };
+
+        return Ok(teamMembers);
     }
 }
