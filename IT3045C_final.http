@@ -1,6 +1,0 @@
-@IT3045C_final_HostAddress = http://localhost:5219
-
-GET {{IT3045C_final_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
