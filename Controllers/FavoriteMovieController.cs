@@ -1,0 +1,33 @@
+using Microsoft.AspNetCore.Mvc;
+using IT3045C_final.Models;
+
+namespace IT3045C_final.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class FavoriteMovieController : ControllerBase
+{
+    private static readonly List<FavoriteMovie> favoriteMovies = new()
+    {
+        new FavoriteMovie { ID = 1, Title = "The Shawshank Redemption", Director = "Frank Darabont", ReleaseYear = "1994", Genre = "Drama" },
+        new FavoriteMovie { ID = 2, Title = "The Godfather", Director = "Francis Ford Coppola", ReleaseYear = "1972", Genre = "Crime" },
+        new FavoriteMovie { ID = 3, Title = "Inception", Director = "Christopher Nolan", ReleaseYear = "2010", Genre = "Sci-Fi" }
+    };
+
+    [HttpGet]
+    public IEnumerable<FavoriteMovie> Get()
+    {
+        return favoriteMovies;
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<FavoriteMovie> Get(int id)
+    {
+        var movie = favoriteMovies.FirstOrDefault(m => m.ID == id);
+        if (movie == null)
+        {
+            return NotFound();
+        }
+        return movie;
+    }
+}
