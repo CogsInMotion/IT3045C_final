@@ -9,46 +9,80 @@ public class FavoriteVideoGameController(ILogger<FavoriteVideoGameController> lo
 {
     private readonly ILogger<FavoriteVideoGameController> _logger = logger;
 
+    private static readonly List<FavoriteVideoGame> favoriteGames = new()
+    {
+        new() {
+            ID = 1,
+            Title = "Baldur's Gate 3",
+            Genre = "RPG",
+            Platform = "PC",
+            ReleaseYear = "2023"
+        },
+        new() {
+            ID = 2,
+            Title = "God of War: Ragnarok",
+            Genre = "Action",
+            Platform = "PlayStation 4",
+            ReleaseYear = "2022"
+        },
+        new() {
+            ID = 3,
+            Title = "Dead by Daylight",
+            Genre = "Horror",
+            Platform = "PC",
+            ReleaseYear = "2016"
+        },
+        new() {
+            ID = 4,
+            Title = "UNKNOWN",
+            Genre = "UNKNOWN",
+            Platform = "UNKNOWN",
+            ReleaseYear = "UNKNOWN"
+        },
+    };
+
     public IActionResult Get()
     {
-        var favoriteGames = new List<FavoriteVideoGame>
-            {
-                // ID 1 = Ben Stewart
-                new() {
-                    ID = 1,
-                    Title = "Baldur's Gate 3",
-                    Genre = "RPG",
-                    Platform = "PC",
-                    ReleaseYear = "2023"
-                },
-                // ID 2 = Patricia Echoles
-                new() {
-                    ID = 2,
-                    Title = "God of War: Ragnarok",
-                    Genre = "Action",
-                    Platform = "PlayStation 4",
-                    ReleaseYear = "2022"
-                },
-                // ID 3 = Madi Evanshine
-                // TODO: update with correct info
-                new() {
-                    ID = 3,
-                    Title = "UNKNOWN",
-                    Genre = "UNKNOWN",
-                    Platform = "UNKNOWN",
-                    ReleaseYear = "UNKNOWN"
-                },
-                // ID 4 = Jacob Nolen
-                // TODO: update with correct info
-                new() {
-                    ID = 4,
-                    Title = "UNKNOWN",
-                    Genre = "UNKNOWN",
-                    Platform = "UNKNOWN",
-                    ReleaseYear = "UNKNOWN"
-                },
-            };
-
         return View(favoriteGames);
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult Get(int id)
+    {
+        var game = favoriteGames.FirstOrDefault(x => x.ID == id);
+        if (game == null) return NotFound();
+        return Ok(game);
+    }
+
+    [HttpPost]
+    public IActionResult Post([FromBody] FavoriteVideoGame newGame)
+    {
+        newGame.ID = favoriteGames.Max(x => x.ID) + 1;
+        favoriteGames.Add(newGame);
+        return Ok(newGame);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Put(int id, [FromBody] FavoriteVideoGame updated)
+    {
+        var existing = favoriteGames.FirstOrDefault(x => x.ID == id);
+        if (existing == null) return NotFound();
+
+        existing.Title = updated.Title;
+        existing.Genre = updated.Genre;
+        existing.Platform = updated.Platform;
+        existing.ReleaseYear = updated.ReleaseYear;
+
+        return Ok(existing);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        var game = favoriteGames.FirstOrDefault(x => x.ID == id);
+        if (game == null) return NotFound();
+
+        favoriteGames.Remove(game);
+        return Ok();
     }
 }

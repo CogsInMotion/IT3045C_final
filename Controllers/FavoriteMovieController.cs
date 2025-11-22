@@ -30,4 +30,36 @@ public class FavoriteMovieController : ControllerBase
         }
         return movie;
     }
+
+    [HttpPost]
+    public ActionResult<FavoriteMovie> Post(FavoriteMovie movie)
+    {
+        movie.ID = favoriteMovies.Max(x => x.ID) + 1;
+        favoriteMovies.Add(movie);
+        return Ok(movie);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Put(int id, FavoriteMovie updated)
+    {
+        var existing = favoriteMovies.FirstOrDefault(x => x.ID == id);
+        if (existing == null) return NotFound();
+
+        existing.Title = updated.Title;
+        existing.Director = updated.Director;
+        existing.ReleaseYear = updated.ReleaseYear;
+        existing.Genre = updated.Genre;
+
+        return Ok(existing);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        var movie = favoriteMovies.FirstOrDefault(x => x.ID == id);
+        if (movie == null) return NotFound();
+
+        favoriteMovies.Remove(movie);
+        return Ok();
+    }
 }

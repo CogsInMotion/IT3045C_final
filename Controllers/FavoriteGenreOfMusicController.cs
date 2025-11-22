@@ -30,4 +30,36 @@ public class FavoriteGenreOfMusicController : ControllerBase
         }
         return genre;
     }
+
+    [HttpPost]
+    public IActionResult Post(FavoriteGenreOfMusic genre)
+    {
+        genre.ID = favoriteGenres.Max(x => x.ID) + 1;
+        favoriteGenres.Add(genre);
+        return Ok(genre);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Put(int id, FavoriteGenreOfMusic updated)
+    {
+        var existing = favoriteGenres.FirstOrDefault(x => x.ID == id);
+        if (existing == null) return NotFound();
+
+        existing.Genre = updated.Genre;
+        existing.Artist = updated.Artist;
+        existing.Album = updated.Album;
+        existing.ReleaseYear = updated.ReleaseYear;
+
+        return Ok(existing);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        var genre = favoriteGenres.FirstOrDefault(x => x.ID == id);
+        if (genre == null) return NotFound();
+
+        favoriteGenres.Remove(genre);
+        return Ok();
+    }
 }
