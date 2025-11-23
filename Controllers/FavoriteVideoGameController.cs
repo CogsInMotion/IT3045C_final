@@ -34,10 +34,10 @@ public class FavoriteVideoGameController(ILogger<FavoriteVideoGameController> lo
         },
         new() {
             ID = 4,
-            Title = "UNKNOWN",
-            Genre = "UNKNOWN",
-            Platform = "UNKNOWN",
-            ReleaseYear = "UNKNOWN"
+            Title = "Hylics 2",
+            Genre = "RPG",
+            Platform = "PC",
+            ReleaseYear = "2020"
         },
     };
 
