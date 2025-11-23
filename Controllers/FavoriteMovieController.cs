@@ -9,10 +9,10 @@ public class FavoriteMovieController : ControllerBase
 {
     private static readonly List<FavoriteMovie> favoriteMovies = new()
     {
-        new FavoriteMovie { ID = 1, Title = "UKNOWN", Director = "UNKNOWN", ReleaseYear = "####", Genre = "UNKNOWN" },
+        new FavoriteMovie { ID = 1, Title = "RED", Director = "Robert Schwentke", ReleaseYear = "2010", Genre = "Dark Comedy" },
         new FavoriteMovie { ID = 2, Title = "The Proposal", Director = "Anne Fletcher", ReleaseYear = "2009", Genre = "Rom-Com" },
         new FavoriteMovie { ID = 3, Title = "UNKNOWN", Director = "UNKNOWN", ReleaseYear = "####", Genre = "UNKNOWN" },
-         new FavoriteMovie { ID = 4, Title = "UNKNOWN", Director = "UNKNOWN", ReleaseYear = "####", Genre = "UNKNOWN" }
+        new FavoriteMovie { ID = 4, Title = "UNKNOWN", Director = "UNKNOWN", ReleaseYear = "####", Genre = "UNKNOWN" }
     };
 
     [HttpGet]
