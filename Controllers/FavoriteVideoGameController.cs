@@ -4,7 +4,7 @@ using IT3045C_final.Models;
 namespace IT3045C_final.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class FavoriteVideoGameController(ILogger<FavoriteVideoGameController> logger) : Controller
 {
     private readonly ILogger<FavoriteVideoGameController> _logger = logger;
