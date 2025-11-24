@@ -33,7 +33,7 @@ app.UseSwaggerUi();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
-app.MapStaticAssets();
+app.UseStaticFiles();
 app.MapControllers();
 
 Console.WriteLine(AppDomain.CurrentDomain.GetData("DataDirectory"));
